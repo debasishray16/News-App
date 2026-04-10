@@ -1,45 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import * as React from 'react';
+import {useNavigation , NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator} from '@react-navigation/stack';
+import HomeScreen from './src/Components/HomeScreen';
+import NewsScreen from './src/Components/NewsScreen';
+import WeatherScreen from './src/Components/WeatherScreen';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
+const Stack = createStackNavigator()
+
+
+
+export default function App() {
+  return(
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName = "Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Main Page' }} />
+        <Stack.Screen name="News" component={NewsScreen} options={{ title: 'Latest News' }} />
+        <Stack.Screen name="Weather" component={WeatherScreen} options={{ title: 'Weather Updates' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
